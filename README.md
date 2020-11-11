@@ -1,1 +1,1 @@
-# Online-medicine-purchasing-platform
+# Developing a platform for order medicine via online
