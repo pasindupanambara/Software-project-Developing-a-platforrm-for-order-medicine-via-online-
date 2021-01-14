@@ -13,6 +13,6 @@ namespace E_Pharmacy.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-        //public string TeleNo { get; set; }
+        public string TeleNo { get; set; }
     }
 }
