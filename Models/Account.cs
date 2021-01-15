@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace E_Pharmacy.Models
 {
     public class Account
     {
+        [Key]
         public int Id { get; set; }
         public string AcType { get; set; }
         public string AcName { get; set; }
