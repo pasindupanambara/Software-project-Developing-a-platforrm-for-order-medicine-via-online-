@@ -25,6 +25,7 @@ namespace E_Pharmacy
         {
 
             services.AddControllersWithViews();
+            //services.AddControllers().AddNewtonsoftJson();
             services.AddDbContext<PharmacyDataContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

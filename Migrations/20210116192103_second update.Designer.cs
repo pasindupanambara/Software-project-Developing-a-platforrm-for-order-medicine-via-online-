@@ -4,14 +4,16 @@ using E_Pharmacy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_Pharmacy.Migrations
 {
     [DbContext(typeof(PharmacyDataContext))]
-    partial class PharmacyDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210116192103_second update")]
+    partial class secondupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,7 +145,16 @@ namespace E_Pharmacy.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Address_district")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address_no")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address_street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address_town")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -156,9 +167,6 @@ namespace E_Pharmacy.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeleNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("district")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

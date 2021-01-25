@@ -11,10 +11,20 @@ namespace E_Pharmacy.Models
     {
         [Key]
         public int OrderID { get; set; }
-        public DateTime Date { get; set; }
-        public char PharmacyName { get; set; }
-        [ForeignKey("Pharmacy")]
-        public int PharmacyID { get; set; }
-        public Pharmacy Pharmacy { get; set; }
+        public DateTime Date_time { get; set; }
+        public string status { get; set; }
+        public string status2 { get; set; }
+        public string PharmacyName { get; set; }
+        public string CustomerName { get; set; }
+        public string PatientName { get; set; }
+        public int PatientAge { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public int TeleNo { get; set; }
+        public int Customer_id { get; set; }
+
+        //[ForeignKey("Pharmacy")]
+        public int Pharmacy_id { get; set; }
+        //public Pharmacy Pharmacy { get; set; }
     }
 }

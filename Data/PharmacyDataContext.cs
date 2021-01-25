@@ -18,7 +18,7 @@ namespace E_Pharmacy.Data
         public DbSet<Message> Message { get; set; }
         public DbSet<Pharmacy> Pharmacy { get; set; }
         public DbSet<Order> Order { get; set; }
-        public DbSet<Prescription> Prescription { get; set; }
+        
 
     }
 }

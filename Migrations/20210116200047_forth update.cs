@@ -2,7 +2,7 @@
 
 namespace E_Pharmacy.Migrations
 {
-    public partial class second : Migration
+    public partial class forthupdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -10,10 +10,10 @@ namespace E_Pharmacy.Models
     {
         [Key]
         public int MessageId { get; set; }
-        public string Time { get; set; }
-        public string Date { get; set; }
+        public DateTime M_date_time { get; set; }
+        public string Status { get; set; }
         public string Text { get; set; }
-        public string Sender { get; set; }
-        public string Reciever { get; set; }
+        public int Sender_id { get; set; }
+        public int Reciever_id { get; set; }
     }
 }

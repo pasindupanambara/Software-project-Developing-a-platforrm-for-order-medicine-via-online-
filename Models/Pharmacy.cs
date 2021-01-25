@@ -14,6 +14,7 @@ namespace E_Pharmacy.Models
         public string RegNo { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
+        public string district { get; set; }
         public string Email { get; set; }
         public string TeleNo { get; set; }
     }

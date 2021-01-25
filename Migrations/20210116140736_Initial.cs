@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace E_Pharmacy.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +28,7 @@ namespace E_Pharmacy.Migrations
                 {
                     CustId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TeleNo = table.Column<int>(type: "int", nullable: false)
                 },
@@ -54,6 +55,27 @@ namespace E_Pharmacy.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PharmacyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientAge = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeleNo = table.Column<int>(type: "int", nullable: false),
+                    PharmacyID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.OrderID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pharmacy",
                 columns: table => new
                 {
@@ -69,49 +91,6 @@ namespace E_Pharmacy.Migrations
                 {
                     table.PrimaryKey("PK_Pharmacy", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Prescription",
-                columns: table => new
-                {
-                    OrderId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PatientName = table.Column<string>(type: "nvarchar(1)", nullable: false),
-                    PatientAge = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(1)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(1)", nullable: false),
-                    TeleNo = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Prescription", x => x.OrderId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    OrderID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PharmacyName = table.Column<string>(type: "nvarchar(1)", nullable: false),
-                    PharmacyID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.OrderID);
-                    table.ForeignKey(
-                        name: "FK_Order_Pharmacy_PharmacyID",
-                        column: x => x.PharmacyID,
-                        principalTable: "Pharmacy",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Order_PharmacyID",
-                table: "Order",
-                column: "PharmacyID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -127,9 +106,6 @@ namespace E_Pharmacy.Migrations
 
             migrationBuilder.DropTable(
                 name: "Order");
-
-            migrationBuilder.DropTable(
-                name: "Prescription");
 
             migrationBuilder.DropTable(
                 name: "Pharmacy");

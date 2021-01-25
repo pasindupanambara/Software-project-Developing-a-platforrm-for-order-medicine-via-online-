@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Pharmacy.Migrations
 {
     [DbContext(typeof(PharmacyDataContext))]
-    [Migration("20210115123356_initial")]
-    partial class initial
+    [Migration("20210116200047_forth update")]
+    partial class forthupdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,9 @@ namespace E_Pharmacy.Migrations
                     b.Property<int>("TeleNo")
                         .HasColumnType("int");
 
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("CustId");
 
                     b.ToTable("Customer");
@@ -67,19 +70,19 @@ namespace E_Pharmacy.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("M_date_time")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Reciever")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Reciever_id")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Sender")
+                    b.Property<int>("Sender_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Time")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MessageId");
@@ -94,19 +97,43 @@ namespace E_Pharmacy.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PharmacyID")
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Customer_id")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Date_time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PatientAge")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PatientName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PharmacyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Pharmacy_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeleNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("status2")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderID");
-
-                    b.HasIndex("PharmacyID");
 
                     b.ToTable("Order");
                 });
@@ -133,50 +160,12 @@ namespace E_Pharmacy.Migrations
                     b.Property<string>("TeleNo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("district")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Pharmacy");
-                });
-
-            modelBuilder.Entity("E_Pharmacy.Models.Prescription", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
-                    b.Property<int>("PatientAge")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PatientName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
-                    b.Property<int>("TeleNo")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderId");
-
-                    b.ToTable("Prescription");
-                });
-
-            modelBuilder.Entity("E_Pharmacy.Models.Order", b =>
-                {
-                    b.HasOne("E_Pharmacy.Models.Pharmacy", "Pharmacy")
-                        .WithMany()
-                        .HasForeignKey("PharmacyID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Pharmacy");
                 });
 #pragma warning restore 612, 618
         }
