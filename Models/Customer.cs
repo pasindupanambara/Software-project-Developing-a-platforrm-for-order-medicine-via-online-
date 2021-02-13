@@ -10,8 +10,9 @@ namespace E_Pharmacy.Models
     {   
         [Key]
         public int CustId { get; set; }
-        public string name { get; set; }
+        public string Customername { get; set; }
         public string Email { get; set; }
-        public int TeleNo { get; set; }
+        public string TeleNo { get; set; }
+        public string Password { get; set; }
     }
 }

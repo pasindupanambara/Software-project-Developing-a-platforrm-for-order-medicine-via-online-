@@ -19,27 +19,6 @@ namespace E_Pharmacy.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("E_Pharmacy.Models.Account", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("AcName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AcType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Accounts");
-                });
-
             modelBuilder.Entity("E_Pharmacy.Models.Customer", b =>
                 {
                     b.Property<int>("CustId")
@@ -47,18 +26,39 @@ namespace E_Pharmacy.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Customername")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeleNo")
-                        .HasColumnType("int");
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("name")
+                    b.Property<string>("TeleNo")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustId");
 
                     b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("E_Pharmacy.Models.Login", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Login");
                 });
 
             modelBuilder.Entity("E_Pharmacy.Models.Message", b =>
@@ -122,14 +122,14 @@ namespace E_Pharmacy.Migrations
                     b.Property<int>("Pharmacy_id")
                         .HasColumnType("int");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TeleNo")
                         .HasColumnType("int");
-
-                    b.Property<string>("status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("status2")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderID");
 
@@ -146,19 +146,22 @@ namespace E_Pharmacy.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pharmacyname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RegNo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeleNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("district")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

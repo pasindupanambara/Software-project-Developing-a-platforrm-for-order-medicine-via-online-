@@ -74,16 +74,41 @@ namespace E_Pharmacy.Controllers
             return NoContent();
         }
 
+
+
         // POST: api/Customers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
-            _context.Customer.Add(customer);
+            /*_context.Customer.Add(customer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustId }, customer);
+            return CreatedAtAction("GetCustomer", new { id = customer.CustId }, customer);*/
+
+            var customerWithSameEmail = _context.Customer.FirstOrDefault(m => m.Email.ToLower() == customer.Email.ToLower()); //check email already exit or not
+
+
+            if (customerWithSameEmail == null)
+            {
+                _context.Customer.Add(customer);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetCustomer", new { id = customer.CustId }, customer);
+
+                /*return new JsonResult("created succesfully"); */
+
+
+            }
+
+            else
+            {
+
+                return BadRequest();
+            }
+
+
         }
 
         // DELETE: api/Customers/5
