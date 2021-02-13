@@ -32,14 +32,14 @@ namespace E_Pharmacy.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrder(string field, int value1, string value2, DateTime date)
         {
-            if (field == "pharmacy" & value2=="date")
+            if (field == "pharmacy" & value2 == "date")
             {
-                return await _context.Order.Where(ord => ord.Pharmacy_id == value1 &&  ord.Date_time.Date ==date).ToListAsync();
+                return await _context.Order.Where(ord => ord.Pharmacy_id == value1 && ord.Date_time.Date == date).ToListAsync();
             }
 
             else if (field == "pharmacy" & value2 == null)
             {
-                return await _context.Order.Where(ord => ord.Pharmacy_id ==value1).ToListAsync();
+                return await _context.Order.Where(ord => ord.Pharmacy_id == value1).ToListAsync();
             }
 
             else if (field == "customer" & value2 == "date")
@@ -54,17 +54,17 @@ namespace E_Pharmacy.Controllers
 
             else if (field == "pharmacy" & value2 == "uncompleted")
             {
-                return await _context.Order.Where(ord => ord.Pharmacy_id == value1 && ord.status=="uncompleted").ToListAsync();
+                return await _context.Order.Where(ord => ord.Pharmacy_id == value1 && ord.Status == "uncompleted").ToListAsync();
             }
 
             else if (field == "pharmacy" & value2 == "completed")
             {
-                return await _context.Order.Where(ord => ord.Pharmacy_id == value1 && ord.status2 == "completed").ToListAsync();
+                return await _context.Order.Where(ord => ord.Pharmacy_id == value1 && ord.Status2 == "completed").ToListAsync();
             }
 
             else if (field == "pharmacy" & value2 == "unseen")
             {
-                return await _context.Order.Where(ord => ord.Pharmacy_id == value1 && ord.status2 == "unseen").ToListAsync();
+                return await _context.Order.Where(ord => ord.Pharmacy_id == value1 && ord.Status2 == "unseen").ToListAsync();
             }
 
             else if (field == "all")

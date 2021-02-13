@@ -21,18 +21,18 @@ namespace E_Pharmacy.Controllers
             _context = context;
         }
 
-       /* // GET: api/Messages
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessage(int value1, int value2)
-        {
-            
-            {
-                return await _context.Order.Where(msg => (msg.Sender_id== value1 || msg.Reciever_id== value1 ) && (msg.Sender_id== value2 || msg.Reciever_id== value2) ).ToListAsync();
-            }
+        /* // GET: api/Messages
+         [HttpGet]
+         public async Task<ActionResult<IEnumerable<Message>>> GetMessage(int value1, int value2)
+         {
+
+             {
+                 return await _context.Order.Where(msg => (msg.Sender_id== value1 || msg.Reciever_id== value1 ) && (msg.Sender_id== value2 || msg.Reciever_id== value2) ).ToListAsync();
+             }
 
 
-            
-        } */
+
+         } */
 
         // GET: api/Messages/5
         [HttpGet("{id}")]

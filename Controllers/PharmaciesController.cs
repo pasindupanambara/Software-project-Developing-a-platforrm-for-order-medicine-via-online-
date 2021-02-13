@@ -23,26 +23,27 @@ namespace E_Pharmacy.Controllers
 
         // GET: api/Pharmacies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pharmacy>>> GetPharmacy (string field, string value)
-        {   if (field == "district")
+        public async Task<ActionResult<IEnumerable<Pharmacy>>> GetPharmacy(string field, string value)
+        {
+            if (field == "district")
             {
-                return await _context.Pharmacy.Where(p => p.district == value).ToListAsync();
+                return await _context.Pharmacy.Where(p => p.District == value).ToListAsync();
             }
 
             else if (field == "name")
             {
-                return await _context.Pharmacy.Where(p => p.Name == value).ToListAsync();
+                return await _context.Pharmacy.Where(p => p.Pharmacyname == value).ToListAsync();
             }
 
             else if (field == "all")
             {
                 return await _context.Pharmacy.ToListAsync();
             }
-         
-                return NotFound();
+
+            return NotFound();
         }
 
-       
+
         // GET: api/Pharmacies/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Pharmacy>> GetPharmacy(int id)
@@ -95,10 +96,23 @@ namespace E_Pharmacy.Controllers
         [HttpPost]
         public async Task<ActionResult<Pharmacy>> PostPharmacy(Pharmacy pharmacy)
         {
-            _context.Pharmacy.Add(pharmacy);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPharmacy", new { id = pharmacy.Id }, pharmacy);
+            var pharmacyWithSameEmail = _context.Pharmacy.FirstOrDefault(m => m.Email.ToLower() == pharmacy.Email.ToLower()); //check email already exit or not
+
+
+            if (pharmacyWithSameEmail == null)
+            {
+                _context.Pharmacy.Add(pharmacy);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetPharmacy", new { id = pharmacy.Id }, pharmacy);
+
+            }
+
+            else
+            {
+                return BadRequest();
+            }
         }
 
         // DELETE: api/Pharmacies/5

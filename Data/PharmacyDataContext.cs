@@ -13,7 +13,7 @@ namespace E_Pharmacy.Data
         {
 
         }
-        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Login> Login { get; set; }
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Message> Message { get; set; }
         public DbSet<Pharmacy> Pharmacy { get; set; }
