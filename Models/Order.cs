@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace E_Pharmacy.Models
 {
@@ -23,6 +24,13 @@ namespace E_Pharmacy.Models
         public int TeleNo { get; set; }
         public int Customer_id { get; set; }
 
+        
+        public string Image { get; set;}
+
+        [NotMapped]
+        public IFormFile ImageData { get; set; }
+        [NotMapped]
+        public String ImageSource { get; set; }
         //[ForeignKey("Pharmacy")]
         public int Pharmacy_id { get; set; }
         //public Pharmacy Pharmacy { get; set; }

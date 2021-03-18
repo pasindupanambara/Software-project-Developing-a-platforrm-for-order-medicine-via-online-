@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using E_Pharmacy.Data;
 using E_Pharmacy.Models;
+using E_Pharmacy.Service;
 
 namespace E_Pharmacy.Controllers
 {
@@ -15,11 +16,16 @@ namespace E_Pharmacy.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly PharmacyDataContext _context;
+        private IOrderService _iorderService;
 
-        public OrdersController(PharmacyDataContext context)
+        public OrdersController(PharmacyDataContext context,   IOrderService imageService)
         {
             _context = context;
+            _iorderService = imageService;
+
         }
+
+        
 
         /*// GET: api/Orders
         [HttpGet]
@@ -128,12 +134,15 @@ namespace E_Pharmacy.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+
+        public async Task<ActionResult<Order>> PostOrder([FromForm] Order order)
         {
+            order.Image = await _iorderService.SaveImage(order.ImageData); //save image
+
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new { id = order.OrderID }, order);
+            return StatusCode(201);
         }
 
         // DELETE: api/Orders/5

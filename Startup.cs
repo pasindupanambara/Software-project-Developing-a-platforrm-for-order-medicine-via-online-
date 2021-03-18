@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using E_Pharmacy.Models;
+using E_Pharmacy.Service;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace E_Pharmacy
 {
@@ -36,6 +39,9 @@ namespace E_Pharmacy
             });
 
             services.AddCors();
+            services.AddScoped<IOrderService, OrderService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,9 +64,19 @@ namespace E_Pharmacy
                 app.UseHsts();
             }
 
+
+            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
+                RequestPath = "/Images"
+            });
+
 
             app.UseRouting();
 
