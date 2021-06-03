@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using E_Pharmacy.Data;
 using E_Pharmacy.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace E_Pharmacy.Controllers
 {
@@ -15,10 +17,12 @@ namespace E_Pharmacy.Controllers
     public class PharmaciesController : ControllerBase
     {
         private readonly PharmacyDataContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public PharmaciesController(PharmacyDataContext context)
+        public PharmaciesController(PharmacyDataContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this._hostEnvironment = hostEnvironment;
         }
 
         // GET: api/Pharmacies
@@ -32,7 +36,19 @@ namespace E_Pharmacy.Controllers
 
             else if (field == "name")
             {
-                return await _context.Pharmacy.Where(p => p.Pharmacyname == value).ToListAsync();
+                return await _context.Pharmacy.Where(p => p.Pharmacyname == value)
+                     .Select(x => new Pharmacy()
+                     {
+                         Id = x.Id,
+                         Pharmacyname = x.Pharmacyname,
+                         Address = x.Address,
+                         District = x.District,
+                         TeleNo = x.TeleNo,
+                         Email = x.Email,
+                         RegNo = x.RegNo,
+                         ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.Pharmacyimagename)
+                     })
+                     .ToListAsync();
             }
 
             else if (field == "all")
@@ -94,7 +110,7 @@ namespace E_Pharmacy.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Pharmacy>> PostPharmacy(Pharmacy pharmacy)
+        public async Task<ActionResult<Pharmacy>> PostPharmacy([FromForm]Pharmacy pharmacy)
         {
 
             var pharmacyWithSameEmail = _context.Pharmacy.FirstOrDefault(m => m.Email.ToLower() == pharmacy.Email.ToLower()); //check email already exit or not
@@ -102,10 +118,12 @@ namespace E_Pharmacy.Controllers
 
             if (pharmacyWithSameEmail == null)
             {
+                pharmacy.Pharmacyimagename = await SaveImage(pharmacy.Pharmacyimagefile);
                 _context.Pharmacy.Add(pharmacy);
                 await _context.SaveChangesAsync();
 
-                return CreatedAtAction("GetPharmacy", new { id = pharmacy.Id }, pharmacy);
+                return StatusCode(201);
+                //return CreatedAtAction("GetPharmacy", new { id = pharmacy.Id }, pharmacy);
 
             }
 
@@ -135,5 +153,33 @@ namespace E_Pharmacy.Controllers
         {
             return _context.Pharmacy.Any(e => e.Id == id);
         }
+
+        /*[NonAction]
+        public async Task<string> SaveImage(IFormFile Pharmacyimagefile)
+        {
+            string PharmacyimageName = new string(PathString.GetFileNameWithoutExtension(Pharmacyimagefile.Filename).Take(10).ToArray()).Replace('', '-');
+            PharmacyimageName = PharmacyimageName + DateTime.Now.Tostring("yymmssfff") + Path.GetExtension(Pharmacyimagefile.Filename);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", PharmacyimageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.create))
+            {
+                await Pharmacyimagefile.CopyToasync(filestream);
+            }
+            return PharmacyimageName;
+
+        }*/
+
+        [NonAction]
+        public async Task<string> SaveImage(IFormFile Pharmacyimagefile)
+        {
+            string Pharmacyimagename = new String(Path.GetFileNameWithoutExtension(Pharmacyimagefile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            Pharmacyimagename = Pharmacyimagename + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(Pharmacyimagefile.FileName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", Pharmacyimagename);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await Pharmacyimagefile.CopyToAsync(fileStream);
+            }
+            return Pharmacyimagename;
+        }
+
     }
 }

@@ -14,5 +14,8 @@ namespace E_Pharmacy.Models
         public string Email { get; set; }
         public string TeleNo { get; set; }
         public string Password { get; set; }
+
+        public string UserRole = "Customer";
+        internal int customerId;
     }
 }

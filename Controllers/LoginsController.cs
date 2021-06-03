@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -104,8 +104,8 @@ namespace E_Pharmacy.Controllers
 
 
 
-
-        /*// POST: api/Logins/2
+        
+        // POST: api/Logins/2
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         public async Task<ActionResult<Login>> Post2Login(Login login)
@@ -117,7 +117,7 @@ namespace E_Pharmacy.Controllers
         } */
 
         // DELETE: api/Logins/5
-        [HttpDelete("{id}")]
+        /*[HttpDelete("{id}")]
         public async Task<ActionResult<Login>> DeleteLogin(int id)
         {
             var login = await _context.Login.FindAsync(id);
@@ -137,4 +137,4 @@ namespace E_Pharmacy.Controllers
             return _context.Login.Any(e => e.Id == id);
         }
     }
-}
+}*/
